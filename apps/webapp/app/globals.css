@@ -89,32 +89,32 @@
   }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@layer base {
+  a {
+    text-decoration: none;
+  }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-}
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
 
-input,
-textarea {
-  background-color: rgba(255, 255, 255, 0.04);
-}
+  input,
+  textarea {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
 
-input::placeholder,
-textarea::placeholder {
-  color: var(--muted-foreground);
-}
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted-foreground);
+  }
 
-::selection {
-  background: var(--accent-color);
-  color: #07070d;
+  ::selection {
+    background: var(--accent-color);
+    color: #07070d;
+  }
 }
 
 .font-display {
