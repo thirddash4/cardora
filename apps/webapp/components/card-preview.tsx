@@ -66,7 +66,7 @@ function AuroraCard({
               className="eyebrow"
               style={{ color: theme.paper, opacity: 0.6 }}
             >
-              cardora · {v.company ?? ""}
+              {v.company ?? ""}
             </span>
           </div>
 
@@ -100,7 +100,10 @@ function AuroraCard({
           </div>
         </div>
 
-        <div className="rise" style={{ animationDelay: "0.15s" }}>
+        <div
+          className="rise hidden lg:block"
+          style={{ animationDelay: "0.15s" }}
+        >
           <article
             className="relative aspect-[1.62] w-full overflow-hidden p-7"
             style={{
