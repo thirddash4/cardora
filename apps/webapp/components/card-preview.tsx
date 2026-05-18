@@ -56,18 +56,31 @@ function AuroraCard({
       />
 
       <div className="grid w-full max-w-6xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-        <div className="rise space-y-8">
-          <div className="flex items-center gap-3">
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ background: accent, boxShadow: `0 0 16px ${accent}` }}
-            />
-            <span
-              className="eyebrow"
-              style={{ color: theme.paper, opacity: 0.6 }}
-            >
-              {v.company ?? ""}
-            </span>
+        <div
+          className="rise space-y-8 rounded-lg border p-6 sm:p-8 lg:rounded-none lg:border-0 lg:p-0"
+          style={{
+            borderColor: `${theme.paper}14`,
+            background: `linear-gradient(180deg, ${theme.surface}cc, ${theme.ink}66)`,
+          }}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span
+                className="h-2 w-2 rounded-full"
+                style={{ background: accent, boxShadow: `0 0 16px ${accent}` }}
+              />
+              <span
+                className="eyebrow"
+                style={{ color: theme.paper, opacity: 0.6 }}
+              >
+                {v.company ?? ""}
+              </span>
+            </div>
+            {v.nickname ? (
+              <span className="eyebrow" style={{ color: accent }}>
+                {v.nickname}
+              </span>
+            ) : null}
           </div>
 
           <h1
@@ -79,24 +92,18 @@ function AuroraCard({
             </span>
           </h1>
 
-          <div className="flex max-w-xl items-start gap-6 pt-2">
-            <span
-              className="mt-3 h-px w-12 shrink-0"
-              style={{ background: accent }}
-            />
-            <div className="space-y-2">
-              <p className="text-lg" style={{ color: theme.paper }}>
-                {v.role}
+          <div className="space-y-3 pt-2">
+            <p className="text-lg" style={{ color: theme.paper }}>
+              {v.role}
+            </p>
+            {v.tagline ? (
+              <p
+                className="eyebrow"
+                style={{ color: theme.paper, opacity: 0.5 }}
+              >
+                {v.tagline}
               </p>
-              {v.tagline ? (
-                <p
-                  className="text-base"
-                  style={{ color: theme.paper, opacity: 0.55 }}
-                >
-                  {v.tagline}
-                </p>
-              ) : null}
-            </div>
+            ) : null}
           </div>
         </div>
 
