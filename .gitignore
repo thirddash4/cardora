@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.*
 
@@ -8,10 +8,13 @@
 
 # next.js
 /.next/
+/apps/**/.next/
 /out/
 
 # production
 /build
+/apps/**/dist/
+/apps/**/.astro/
 
 # misc
 .DS_Store
@@ -31,6 +34,11 @@ pnpm-debug.log*
 
 # hermes/local verification artifacts
 .hermes
+.turbo
+
+# local agent/skill tooling (not deployed)
+.agents
+skills-lock.json
 
 # typescript
 *.tsbuildinfo

@@ -1,14 +1,33 @@
 # Cardora
 
-Minimal credit-card-size English–Thai digital business card for Third, built with Next.js.
+Cardora is a Turbo/npm workspace for a digital business card product.
 
-- Production: https://third-bilingual-card.vercel.app
-- Features: mobile-friendly credit-card ratio layout, Cardora naming, bilingual EN/TH content, scannable QR code back to the live card.
+- `apps/marketing`: Astro-only marketing site.
+- `apps/webapp`: Next.js app with Turbopack dev server, Better Auth login, shadcn-style admin UI, Neon/Postgres schema, and public card pages at `/c/[card-slug]`.
 
 ## Development
 
 ```bash
 npm install
-npm run build
 npm run dev
+```
+
+The webapp runs on Next's default port `3000`; the Astro marketing app is configured for port `4321`.
+
+## Database and Auth
+
+Copy `.env.example` to `.env.local` or configure the same values in your deployment environment.
+
+```bash
+npm run db:generate --workspace @cardora/webapp
+npm run db:migrate --workspace @cardora/webapp
+```
+
+`DATABASE_URL` should be a Neon PostgreSQL connection string. Without it, admin list pages fall back to seeded demo data so the UI can build locally.
+
+## Verification
+
+```bash
+npm run typecheck
+npm run build
 ```

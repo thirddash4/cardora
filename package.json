@@ -2,22 +2,18 @@
   "name": "cardora",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "npm@11.9.0",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@next/third-parties": "latest",
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest"
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck"
   },
   "devDependencies": {
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
+    "turbo": "latest",
     "typescript": "latest"
   }
 }

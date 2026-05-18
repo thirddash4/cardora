@@ -1,0 +1,577 @@
+---
+const webappUrl = "http://localhost:3000";
+const year = new Date().getFullYear();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#07070d" />
+    <meta
+      name="description"
+      content="Cardora is a team workspace for crafting stunning, customizable digital business cards with public URLs."
+    />
+    <title>Cardora — A card worth carrying.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header>
+      <a class="brand" href="/">
+        <span class="brand-word">cardora</span>
+        <span class="brand-dot"></span>
+      </a>
+      <nav>
+        <a class="link" href={`${webappUrl}/c/third`}>/c/third</a>
+        <a class="link" href={`${webappUrl}/c/lumen`}>/c/lumen</a>
+        <a class="cta" href={`${webappUrl}/admin`}>open studio →</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow rise">digital business cards · {year}</p>
+        <h1 class="rise" style="animation-delay:.05s">
+          <span>a card</span>
+          <span class="accent">worth&nbsp;carrying.</span>
+        </h1>
+
+        <div class="hero-grid">
+          <p class="lede rise" style="animation-delay:.12s">
+            Cardora is a team workspace for crafting stunning, customizable digital
+            business cards. Pick a layout, choose your accent, write your tagline —
+            then publish to a public URL anyone can scan.
+          </p>
+
+          <div class="card-frame rise" style="animation-delay:.18s">
+            <article class="card" aria-label="Sample digital card preview">
+              <header class="card-head">
+                <span class="kbd">aurora · live</span>
+                <span class="ticker">/c/third</span>
+              </header>
+              <div class="card-body">
+                <p class="card-name">third</p>
+                <p class="card-role">AI Systems Operator · Cardora</p>
+              </div>
+              <footer class="card-foot">
+                <a href="mailto:third@cardora.local"><span>@</span> third@cardora.local</a>
+                <a href="tel:+660000000000"><span>↘</span> +66 00 000 0000</a>
+                <a href="https://cardora.app"><span>↗</span> cardora.app</a>
+              </footer>
+            </article>
+          </div>
+        </div>
+
+        <div class="actions rise" style="animation-delay:.22s">
+          <a class="cta primary" href={`${webappUrl}/admin/cards`}>open studio</a>
+          <a class="cta" href={`${webappUrl}/c/third`}>see a card →</a>
+        </div>
+      </section>
+
+      <section class="strip">
+        <div><span class="i">i</span> live preview as you type</div>
+        <div><span class="i">ii</span> aurora &amp; editorial layouts</div>
+        <div><span class="i">iii</span> public at /c/[slug]</div>
+        <div><span class="i">iv</span> teams, templates, placeholders</div>
+      </section>
+
+      <section class="features">
+        <article>
+          <p class="num">01</p>
+          <h2>Customizable, end to end.</h2>
+          <p>
+            Drop a hex into the accent picker. Pick a font pair. Switch from <em>aurora</em> to
+            <em>editorial</em>. The card redraws live — no rebuild, no surprise.
+          </p>
+        </article>
+        <article>
+          <p class="num">02</p>
+          <h2>Two strong layouts.</h2>
+          <p>
+            <em>Aurora</em> is luminous and lowercase, all glow and serif. <em>Editorial</em>
+            is brutalist magazine grid, oversized italic, monospace metadata.
+          </p>
+        </article>
+        <article>
+          <p class="num">03</p>
+          <h2>Public by URL.</h2>
+          <p>
+            Every card ships at <code>/c/[slug]</code>. Paste it in a signature, on a QR,
+            on a printed card. It just&nbsp;works.
+          </p>
+        </article>
+      </section>
+
+      <section class="cta-block">
+        <h3>Build a card you'd<br /><span class="accent-text">actually carry.</span></h3>
+        <a class="cta primary big" href={`${webappUrl}/admin/cards`}>open studio →</a>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span class="mono">cardora · {year}</span>
+      <span class="mono">made dark, made yours</span>
+    </footer>
+
+    <style is:global>
+      :root {
+        color-scheme: dark;
+        --ink: #07070d;
+        --surface: #10101a;
+        --surface-2: #15151f;
+        --paper: #f5f3ec;
+        --muted: #8a8a99;
+        --line: rgba(255, 255, 255, 0.07);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        --accent: #d6ff3a;
+        --copper: #e6b58a;
+        --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+        --font-body: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      body {
+        font-family: var(--font-body);
+        font-feature-settings: "ss01", "cv11";
+        letter-spacing: -0.005em;
+        -webkit-font-smoothing: antialiased;
+        background:
+          radial-gradient(60% 50% at 12% -10%, rgba(214, 255, 58, 0.09), transparent 55%),
+          radial-gradient(50% 40% at 100% 110%, rgba(230, 181, 138, 0.06), transparent 60%),
+          var(--ink);
+        background-attachment: fixed;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .grain {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.04;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+      }
+
+      header {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 28px max(20px, 5vw);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+
+      .brand-word {
+        font-family: var(--font-display);
+        font-size: 30px;
+        font-style: italic;
+        letter-spacing: -0.025em;
+      }
+
+      .brand-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 10px var(--accent);
+        transform: translateY(-2px);
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .link {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--muted);
+      }
+      .link:hover {
+        color: var(--paper);
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border: 1px solid var(--line-strong);
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--paper);
+        transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+      }
+      .cta:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .cta.primary {
+        background: var(--accent);
+        color: var(--ink);
+        border-color: var(--accent);
+      }
+      .cta.primary:hover {
+        background: var(--paper);
+        border-color: var(--paper);
+        color: var(--ink);
+      }
+      .cta.big {
+        padding: 18px 28px;
+        font-size: 13px;
+      }
+
+      main {
+        position: relative;
+        z-index: 2;
+        padding: 0 max(20px, 5vw) 80px;
+      }
+
+      .hero {
+        max-width: 1280px;
+        margin: 60px auto 0;
+      }
+
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+        color: var(--accent);
+        margin: 0 0 28px;
+      }
+
+      h1 {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 400;
+        text-transform: lowercase;
+        font-size: clamp(72px, 14vw, 220px);
+        line-height: 0.84;
+        letter-spacing: -0.045em;
+        margin: 0;
+      }
+
+      h1 span {
+        display: block;
+      }
+
+      h1 .accent {
+        color: var(--accent);
+      }
+
+      .hero-grid {
+        margin-top: 56px;
+        display: grid;
+        gap: clamp(32px, 5vw, 72px);
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
+        align-items: end;
+      }
+
+      .lede {
+        margin: 0;
+        max-width: 36ch;
+        font-size: clamp(18px, 1.6vw, 22px);
+        line-height: 1.55;
+        color: rgba(245, 243, 236, 0.7);
+      }
+
+      .card-frame {
+        position: relative;
+      }
+
+      .card {
+        position: relative;
+        aspect-ratio: 1.62 / 1;
+        padding: 24px;
+        border: 1px solid rgba(214, 255, 58, 0.32);
+        border-radius: 4px;
+        background:
+          linear-gradient(155deg, var(--surface) 0%, #000 130%);
+        box-shadow:
+          0 40px 120px -20px rgba(214, 255, 58, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: -120px;
+        left: -90px;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.22;
+        filter: blur(80px);
+      }
+
+      .card-head {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: rgba(245, 243, 236, 0.55);
+      }
+      .card-head .ticker {
+        color: var(--accent);
+      }
+
+      .card-name {
+        margin: 0;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: clamp(44px, 5vw, 64px);
+        line-height: 0.9;
+        letter-spacing: -0.03em;
+      }
+      .card-role {
+        margin: 6px 0 0;
+        color: rgba(245, 243, 236, 0.55);
+        font-size: 13px;
+      }
+
+      .card-foot {
+        position: relative;
+        display: grid;
+        gap: 6px;
+      }
+      .card-foot a {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: rgba(245, 243, 236, 0.7);
+      }
+      .card-foot a span {
+        display: grid;
+        place-items: center;
+        width: 18px;
+        height: 18px;
+        border: 1px solid rgba(214, 255, 58, 0.4);
+        border-radius: 2px;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--accent);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 64px;
+      }
+
+      .strip {
+        max-width: 1280px;
+        margin: 96px auto 0;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .strip > div {
+        padding: 18px 22px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--muted);
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .strip > div + div {
+        border-left: 1px solid var(--line);
+      }
+      .strip .i {
+        color: var(--accent);
+      }
+
+      .features {
+        max-width: 1280px;
+        margin: 64px auto 0;
+        display: grid;
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        overflow: hidden;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .features article {
+        padding: clamp(28px, 4vw, 44px);
+        background: var(--surface);
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 16px;
+      }
+      .features .num {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+        color: var(--muted);
+        margin: 0;
+      }
+      .features h2 {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(28px, 3vw, 40px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+      .features p {
+        margin: 0;
+        color: rgba(245, 243, 236, 0.62);
+        line-height: 1.55;
+        font-size: 14px;
+      }
+      .features em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .cta-block {
+        max-width: 1280px;
+        margin: 120px auto 0;
+        padding: clamp(40px, 8vw, 96px) clamp(28px, 5vw, 64px);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background:
+          radial-gradient(60% 50% at 100% 0%, rgba(214, 255, 58, 0.10), transparent 50%),
+          var(--surface);
+        display: grid;
+        gap: 28px;
+        grid-template-columns: minmax(0, 1.4fr) auto;
+        align-items: center;
+      }
+      .cta-block h3 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(48px, 7vw, 96px);
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+      }
+      .accent-text {
+        color: var(--accent);
+      }
+
+      .foot {
+        position: relative;
+        z-index: 2;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 32px max(20px, 5vw);
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .mono {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+      }
+
+      .kbd {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .rise {
+        animation: rise 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+
+      @media (max-width: 860px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+        .strip {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .strip > div + div {
+          border-left: none;
+        }
+        .strip > div:nth-child(n + 3) {
+          border-top: 1px solid var(--line);
+        }
+        .strip > div:nth-child(2n) {
+          border-left: 1px solid var(--line);
+        }
+        .features {
+          grid-template-columns: 1fr;
+        }
+        .cta-block {
+          grid-template-columns: 1fr;
+        }
+        .foot {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </body>
+</html>
