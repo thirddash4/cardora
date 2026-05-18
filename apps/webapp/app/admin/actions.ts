@@ -141,17 +141,33 @@ export async function updateCard(payload: unknown) {
 export async function createCard(formData: FormData) {
   const title = String(formData.get("title") ?? "Untitled");
   const slug = slugify(String(formData.get("slug") || title));
-  const templateId = String(formData.get("templateId") ?? "tpl_aurora");
-  const teamId = String(formData.get("teamId") ?? "team_cardora");
 
   if (hasDatabase) {
+    const templateIdFromForm = String(formData.get("templateId") ?? "").trim();
+    const teamIdFromForm = String(formData.get("teamId") ?? "").trim();
+
+    const templateId =
+      templateIdFromForm ||
+      (await db.select().from(cardTemplate).limit(1))[0]?.id;
+    const teamId =
+      teamIdFromForm || (await db.select().from(team).limit(1))[0]?.id;
+
+    if (!templateId)
+      throw new Error("No template available. Create one first.");
+    if (!teamId) throw new Error("No team available. Create one first.");
+
     await db.insert(card).values({
       id: createId("card"),
       teamId,
       templateId,
       slug,
       title,
-      values: { name: title, role: "—", company: "—", email: "hello@cardora.app" },
+      values: {
+        name: title,
+        role: "—",
+        company: "—",
+        email: "hello@cardora.app",
+      },
       theme: { ...defaultCardTheme },
       layout: "aurora",
     });

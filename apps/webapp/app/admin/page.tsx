@@ -1,11 +1,27 @@
 import Link from "next/link";
-import { ArrowUpRight, CreditCard, Layers3, Plus, UsersRound } from "lucide-react";
+import {
+  ArrowUpRight,
+  CreditCard,
+  Layers3,
+  Plus,
+  UsersRound,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getCards, getTeams, getTemplates } from "@/lib/template-store";
 
 export default async function AdminDashboard() {
-  const [teams, templates, cards] = await Promise.all([getTeams(), getTemplates(), getCards()]);
+  const [teams, templates, cards] = await Promise.all([
+    getTeams(),
+    getTemplates(),
+    getCards(),
+  ]);
 
   return (
     <div className="grid gap-10">
@@ -16,8 +32,9 @@ export default async function AdminDashboard() {
             studio
           </h1>
           <p className="mt-3 max-w-xl text-muted-foreground">
-            Manage team workspaces, card templates, placeholders, and published cards.
-            Each card has its own theme and layout — fully customizable, live-preview.
+            Manage team workspaces, card templates, placeholders, and published
+            cards. Each card has its own theme and layout — fully customizable,
+            live-preview.
           </p>
         </div>
         <div className="flex gap-2">
@@ -35,9 +52,24 @@ export default async function AdminDashboard() {
       </div>
 
       <section className="grid gap-px overflow-hidden rounded-lg border md:grid-cols-3">
-        <Metric icon={UsersRound} label="Teams" value={teams.length} index="i" />
-        <Metric icon={Layers3} label="Templates" value={templates.length} index="ii" />
-        <Metric icon={CreditCard} label="Cards" value={cards.length} index="iii" />
+        <Metric
+          icon={UsersRound}
+          label="Teams"
+          value={teams.length}
+          index="i"
+        />
+        <Metric
+          icon={Layers3}
+          label="Templates"
+          value={templates.length}
+          index="ii"
+        />
+        <Metric
+          icon={CreditCard}
+          label="Cards"
+          value={cards.length}
+          index="iii"
+        />
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1fr_360px]">
@@ -45,7 +77,9 @@ export default async function AdminDashboard() {
           <CardHeader>
             <div className="flex items-start justify-between">
               <div>
-                <CardTitle className="font-display text-3xl italic lowercase">recent cards</CardTitle>
+                <CardTitle className="font-display text-3xl italic lowercase">
+                  recent cards
+                </CardTitle>
                 <CardDescription>Open one to customize live.</CardDescription>
               </div>
               <Button asChild variant="ghost" size="sm">
@@ -64,7 +98,9 @@ export default async function AdminDashboard() {
                   className="group flex items-center justify-between rounded-md border bg-[var(--surface-2)] px-4 py-3 transition-colors hover:border-[var(--accent-color)]/60"
                 >
                   <div>
-                    <p className="font-display text-xl italic lowercase">{c.title}</p>
+                    <p className="font-display text-xl italic lowercase">
+                      {c.title}
+                    </p>
                     <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                       /c/{c.slug} · {c.layout}
                     </p>
@@ -73,7 +109,9 @@ export default async function AdminDashboard() {
                 </Link>
               ))}
               {cards.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No cards yet — create one from the Cards page.</p>
+                <p className="text-sm text-muted-foreground">
+                  No cards yet — create one from the Cards page.
+                </p>
               ) : null}
             </div>
           </CardContent>
@@ -81,21 +119,25 @@ export default async function AdminDashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="font-display text-2xl italic lowercase">public route</CardTitle>
+            <CardTitle className="font-display text-2xl italic lowercase">
+              public route
+            </CardTitle>
             <CardDescription>Every card ships at /c/[slug].</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-2">
-              <Button asChild variant="outline">
-                <Link href="/c/third">
-                  /c/third <ArrowUpRight className="size-3.5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/c/lumen">
-                  /c/lumen <ArrowUpRight className="size-3.5" />
-                </Link>
-              </Button>
+              {cards.slice(0, 3).map((c) => (
+                <Button key={c.id} asChild variant="outline">
+                  <Link href={`/c/${c.slug}`}>
+                    /c/{c.slug} <ArrowUpRight className="size-3.5" />
+                  </Link>
+                </Button>
+              ))}
+              {cards.length === 0 ? (
+                <p className="text-sm text-muted-foreground">
+                  No published cards yet.
+                </p>
+              ) : null}
             </div>
           </CardContent>
         </Card>
@@ -119,10 +161,14 @@ function Metric({
     <div className="bg-[var(--surface)] p-6">
       <div className="flex items-center justify-between">
         <span className="eyebrow">{label}</span>
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{index}</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+          {index}
+        </span>
       </div>
       <div className="mt-4 flex items-end justify-between">
-        <span className="font-display text-6xl italic leading-none tracking-tight">{value}</span>
+        <span className="font-display text-6xl italic leading-none tracking-tight">
+          {value}
+        </span>
         <Icon className="size-5 text-[var(--accent-color)]" />
       </div>
     </div>

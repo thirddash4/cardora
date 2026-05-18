@@ -3,30 +3,46 @@ import { ArrowUpRight, Plus, Sparkles } from "lucide-react";
 import { createCard } from "@/app/admin/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getCards, getTemplates } from "@/lib/template-store";
+import { getCards, getTeams, getTemplates } from "@/lib/template-store";
 
 export default async function CardsPage() {
-  const [cards, templates] = await Promise.all([getCards(), getTemplates()]);
+  const [cards, templates, teams] = await Promise.all([
+    getCards(),
+    getTemplates(),
+    getTeams(),
+  ]);
   const firstTemplate = templates[0];
+  const firstTeam = teams[0];
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
       <section className="grid gap-4">
         <div>
           <p className="eyebrow eyebrow-accent">04 · cards</p>
-          <h1 className="font-display mt-2 text-5xl italic lowercase tracking-tight">cards</h1>
+          <h1 className="font-display mt-2 text-5xl italic lowercase tracking-tight">
+            cards
+          </h1>
           <p className="mt-3 max-w-xl text-muted-foreground">
-            Every card has its own theme, layout, and public URL. Open one to customize colors, fonts, and content with a
-            live preview.
+            Every card has its own theme, layout, and public URL. Open one to
+            customize colors, fonts, and content with a live preview.
           </p>
         </div>
 
         <div className="grid gap-3">
           {cards.map((c) => (
-            <Card key={c.id} className="group transition-colors hover:border-[var(--accent-color)]/50">
+            <Card
+              key={c.id}
+              className="group transition-colors hover:border-[var(--accent-color)]/50"
+            >
               <CardHeader>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
@@ -59,15 +75,26 @@ export default async function CardsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Create card</CardTitle>
-          <CardDescription>Spin up a new card from the active template, then customize.</CardDescription>
+          <CardDescription>
+            Spin up a new card from the active template, then customize.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form action={createCard} className="grid gap-4">
-            <input type="hidden" name="templateId" value={firstTemplate?.id ?? "tpl_aurora"} />
-            <input type="hidden" name="teamId" value="team_cardora" />
+            <input
+              type="hidden"
+              name="templateId"
+              value={firstTemplate?.id ?? ""}
+            />
+            <input type="hidden" name="teamId" value={firstTeam?.id ?? ""} />
             <div className="grid gap-2">
               <Label htmlFor="title">Card title</Label>
-              <Input id="title" name="title" placeholder="Mia Stratton" required />
+              <Input
+                id="title"
+                name="title"
+                placeholder="Mia Stratton"
+                required
+              />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="slug">Slug</Label>
