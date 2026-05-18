@@ -127,7 +127,7 @@ export function CardView({ card }: { card: Card }) {
           >
             {/* Front face */}
             <div
-              className="aspect-[3/4] w-full lg:aspect-auto"
+              className="aspect-[4/7] w-full lg:aspect-auto"
               style={{
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
@@ -138,7 +138,7 @@ export function CardView({ card }: { card: Card }) {
 
             {/* Back face */}
             <div
-              className="absolute inset-0 aspect-[3/4] w-full lg:aspect-auto"
+              className="absolute inset-0 aspect-[4/7] w-full lg:aspect-auto"
               style={{
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
