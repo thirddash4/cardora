@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { Check, Maximize2, RotateCw, Share2, X } from "lucide-react";
+import { Check, RotateCw, Share2 } from "lucide-react";
 import { CardPreview } from "@/components/card-preview";
 import type { Card } from "@/db/schema";
 import { fontFamily, normalizeCardTheme } from "@/lib/card-theme";
@@ -10,23 +10,12 @@ import { fontFamily, normalizeCardTheme } from "@/lib/card-theme";
 export function CardView({ card }: { card: Card }) {
   const theme = normalizeCardTheme(card.theme);
   const [flipped, setFlipped] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
   const [shareState, setShareState] = useState<"idle" | "copied">("idle");
   const [href, setHref] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") setHref(window.location.href);
   }, []);
-
-  useEffect(() => {
-    // Exit fullscreen with Escape
-    if (!fullscreen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setFullscreen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [fullscreen]);
 
   async function share() {
     const data = {
@@ -35,17 +24,15 @@ export function CardView({ card }: { card: Card }) {
       url: href,
     };
 
-    // 1) Native share sheet (mobile + many desktop browsers)
     if (typeof navigator !== "undefined" && "share" in navigator) {
       try {
         await navigator.share(data);
         return;
       } catch {
-        // user dismissed or share failed — fall through
+        // user dismissed — fall through
       }
     }
 
-    // 2) Async clipboard API (most modern browsers, https)
     if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
       try {
         await navigator.clipboard.writeText(href);
@@ -53,11 +40,10 @@ export function CardView({ card }: { card: Card }) {
         setTimeout(() => setShareState("idle"), 1800);
         return;
       } catch {
-        // permission denied or insecure context — fall through
+        // permission denied — fall through
       }
     }
 
-    // 3) Last-resort: temporary input + execCommand("copy")
     try {
       const ta = document.createElement("textarea");
       ta.value = href;
@@ -76,26 +62,20 @@ export function CardView({ card }: { card: Card }) {
       // ignore
     }
 
-    // 4) Final fallback: show prompt so user can copy manually
     if (typeof window !== "undefined") window.prompt("Copy this URL:", href);
   }
 
   return (
     <div
-      data-fullscreen={fullscreen || undefined}
-      className="relative isolate min-h-svh w-full data-[fullscreen]:fixed data-[fullscreen]:inset-0 data-[fullscreen]:z-50 data-[fullscreen]:overflow-hidden data-[fullscreen]:bg-black"
+      className="relative isolate min-h-svh w-full"
       style={{ background: theme.ink }}
     >
       {/* Action bar — top right */}
-      <div
-        className={`absolute right-4 top-4 z-30 flex items-center gap-2 sm:right-6 sm:top-6 ${
-          fullscreen ? "z-[60]" : ""
-        }`}
-      >
+      <div className="absolute right-4 top-4 z-30 flex items-center gap-2 sm:right-6 sm:top-6">
         <button
           type="button"
           onClick={() => setFlipped((v) => !v)}
-          className="group inline-flex h-10 items-center gap-2 rounded-full border bg-white/5 px-3 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
+          className="inline-flex h-10 items-center gap-2 rounded-full border bg-white/5 px-3 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
           style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
           aria-label="Flip card"
         >
@@ -108,7 +88,7 @@ export function CardView({ card }: { card: Card }) {
         <button
           type="button"
           onClick={share}
-          className="group inline-flex h-10 items-center gap-2 rounded-full border bg-white/5 px-3 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
+          className="inline-flex h-10 items-center gap-2 rounded-full border bg-white/5 px-3 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
           style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
           aria-label="Share card"
         >
@@ -121,47 +101,23 @@ export function CardView({ card }: { card: Card }) {
             {shareState === "copied" ? "copied" : "share"}
           </span>
         </button>
-
-        <button
-          type="button"
-          onClick={() => setFullscreen((v) => !v)}
-          className="group inline-flex h-10 items-center justify-center gap-2 rounded-full border bg-white/5 px-3 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
-          style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
-          aria-label={fullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-        >
-          {fullscreen ? (
-            <X className="size-3.5" />
-          ) : (
-            <Maximize2 className="size-3.5" />
-          )}
-          <span className="hidden sm:inline font-mono">
-            {fullscreen ? "exit" : "full"}
-          </span>
-        </button>
       </div>
 
-      {/* Card flip stage */}
+      {/* Centered card stage */}
       <div
-        className={`grid place-items-center ${
-          fullscreen ? "h-svh w-svw" : "min-h-svh"
-        }`}
+        className="grid min-h-svh place-items-center px-4 py-20 sm:px-6"
         onClick={(e) => {
-          // Only flip when clicking the empty stage / card, not the action bar
           const target = e.target as HTMLElement;
           if (target.closest("button") || target.closest("a")) return;
           setFlipped((v) => !v);
         }}
       >
         <div
-          className={`flip-stage relative w-full ${
-            fullscreen ? "fullscreen-rotate" : ""
-          }`}
-          style={{
-            perspective: "1800px",
-          }}
+          className="relative mx-auto w-full max-w-sm lg:max-w-6xl"
+          style={{ perspective: "1800px" }}
         >
           <div
-            className="flip-inner relative w-full transition-transform"
+            className="relative w-full transition-transform"
             style={{
               transformStyle: "preserve-3d",
               transitionDuration: "700ms",
@@ -171,25 +127,25 @@ export function CardView({ card }: { card: Card }) {
           >
             {/* Front face */}
             <div
-              className="flip-face"
+              className="aspect-[3/4] w-full lg:aspect-auto"
               style={{
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
               }}
             >
-              <CardPreview card={card} fit={fullscreen} />
+              <CardPreview card={card} fit />
             </div>
 
             {/* Back face */}
             <div
-              className="flip-face absolute inset-0"
+              className="absolute inset-0 aspect-[3/4] w-full lg:aspect-auto"
               style={{
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
               }}
             >
-              <CardBack card={card} href={href} fit={fullscreen} />
+              <CardBack card={card} href={href} />
             </div>
           </div>
         </div>
@@ -201,90 +157,21 @@ export function CardView({ card }: { card: Card }) {
       >
         tap to {flipped ? "flip back" : "see qr"}
       </p>
-
-      {/* Portrait-fullscreen "turn phone landscape" hint */}
-      {fullscreen ? (
-        <div
-          className="portrait-hint pointer-events-none absolute inset-x-0 top-1/2 z-40 -translate-y-1/2 text-center"
-          style={{ color: theme.paper }}
-        >
-          <div
-            className="mx-auto inline-flex items-center gap-3 rounded-full border px-4 py-2 backdrop-blur"
-            style={{
-              borderColor: `${theme.accent}66`,
-              background: `${theme.ink}c0`,
-            }}
-          >
-            <RotateCw className="size-4" style={{ color: theme.accent }} />
-            <span className="font-mono text-[11px] uppercase tracking-[0.22em]">
-              turn phone landscape
-            </span>
-          </div>
-        </div>
-      ) : null}
-
-      <style jsx>{`
-        /* Show the rotate hint only when the device is in portrait + small */
-        .portrait-hint {
-          display: none;
-        }
-        @media (max-width: 768px) and (orientation: portrait) {
-          .portrait-hint {
-            display: block;
-            animation: hint-fade 4.5s ease-in-out forwards;
-          }
-        }
-        @keyframes hint-fade {
-          0%,
-          60% {
-            opacity: 0.92;
-          }
-          100% {
-            opacity: 0;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .fullscreen-rotate .flip-inner {
-            transform-origin: center center;
-            /* Rotate the card 90deg to landscape orientation when phone is portrait */
-          }
-          .fullscreen-rotate {
-            transform: rotate(90deg);
-            width: 100svh;
-            height: 100svw;
-            max-width: 100svh;
-          }
-        }
-        .fullscreen-rotate {
-          padding: 0;
-        }
-      `}</style>
     </div>
   );
 }
 
-function CardBack({
-  card,
-  href,
-  fit,
-}: {
-  card: Card;
-  href: string;
-  fit: boolean;
-}) {
+function CardBack({ card, href }: { card: Card; href: string }) {
   const theme = normalizeCardTheme(card.theme);
   const v = card.values;
-  const heightClass = fit ? "h-full" : "min-h-svh";
-
-  // Encode either the URL or a quick vCard string. URL is more universal.
-  const qrValue = href || `https://carderna.app/c/${card.slug}`;
+  const qrValue = href || `https://carderna.com/c/${card.slug}`;
 
   return (
     <section
-      className={`relative isolate flex ${heightClass} w-full items-center justify-center overflow-hidden px-6 py-16`}
+      className="relative isolate flex h-full w-full flex-col items-center justify-between overflow-hidden rounded-lg border p-6 sm:p-8 lg:min-h-svh lg:rounded-none lg:border-0 lg:p-16"
       style={{
-        background: theme.ink,
+        background: `linear-gradient(180deg, ${theme.surface}cc, ${theme.ink}66)`,
+        borderColor: `${theme.paper}14`,
         color: theme.paper,
         fontFamily: fontFamily(theme.fontBody),
       }}
@@ -293,11 +180,11 @@ function CardBack({
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
-          background: `radial-gradient(60% 50% at 50% 50%, ${theme.accent}1c, transparent 60%), linear-gradient(180deg, ${theme.ink}, ${theme.surface})`,
+          background: `radial-gradient(60% 50% at 50% 50%, ${theme.accent}1c, transparent 60%)`,
         }}
       />
 
-      <div className="grid w-full max-w-2xl place-items-center gap-8 text-center">
+      <div className="flex w-full flex-col items-center gap-4 text-center">
         <Avatar
           name={v.name}
           src={v.avatar}
@@ -305,13 +192,12 @@ function CardBack({
           ink={theme.ink}
           paper={theme.paper}
         />
-
-        <div className="space-y-2">
+        <div className="space-y-1">
           <p className="eyebrow" style={{ color: theme.accent }}>
             scan · save · share
           </p>
           <h2
-            className="font-display text-4xl italic lowercase tracking-tight sm:text-5xl"
+            className="font-display text-3xl italic lowercase leading-[0.95] tracking-tight sm:text-4xl"
             style={{
               fontFamily: fontFamily(theme.fontDisplay),
               color: theme.paper,
@@ -320,67 +206,41 @@ function CardBack({
             {v.name}
           </h2>
           <p
-            className="font-mono text-[11px] uppercase tracking-[0.22em]"
+            className="font-mono text-[10px] uppercase tracking-[0.22em]"
             style={{ color: theme.paper, opacity: 0.6 }}
           >
             /c/{card.slug}
           </p>
         </div>
-
-        <div
-          className="grid place-items-center rounded-md p-5"
-          style={{
-            background: theme.paper,
-            boxShadow: `0 30px 80px -20px ${theme.accent}40`,
-          }}
-        >
-          {qrValue ? (
-            <QRCodeSVG
-              value={qrValue}
-              size={208}
-              level="M"
-              marginSize={1}
-              bgColor={theme.paper}
-              fgColor={theme.ink}
-            />
-          ) : (
-            <div className="h-[208px] w-[208px]" />
-          )}
-        </div>
-
-        <div
-          className="hidden w-full max-w-md gap-1 text-sm"
-          style={{ color: theme.paper }}
-        >
-          {v.email ? (
-            <a
-              className="truncate underline decoration-1 underline-offset-4 hover:opacity-100"
-              style={{ opacity: 0.8 }}
-              href={`mailto:${v.email}`}
-            >
-              {v.email}
-            </a>
-          ) : null}
-          {v.phone ? (
-            <a
-              className="truncate underline decoration-1 underline-offset-4"
-              style={{ opacity: 0.8 }}
-              href={`tel:${v.phone.replace(/[^+\d]/g, "")}`}
-            >
-              {v.phone}
-            </a>
-          ) : null}
-          {v.website ? (
-            <a
-              className="truncate underline decoration-1 underline-offset-4"
-              style={{ opacity: 0.8 }}
-              href={`https://${v.website.replace(/^https?:\/\//, "")}`}
-            >
-              {v.website}
-            </a>
-          ) : null}
-        </div>
       </div>
+
+      <div
+        className="grid place-items-center rounded-md p-3 sm:p-4"
+        style={{
+          background: theme.paper,
+          boxShadow: `0 30px 80px -20px ${theme.accent}40`,
+        }}
+      >
+        {qrValue ? (
+          <QRCodeSVG
+            value={qrValue}
+            size={168}
+            level="M"
+            marginSize={1}
+            bgColor={theme.paper}
+            fgColor={theme.ink}
+          />
+        ) : (
+          <div className="h-[168px] w-[168px]" />
+        )}
+      </div>
+
+      <p
+        className="font-mono text-[10px] uppercase tracking-[0.22em]"
+        style={{ color: theme.paper, opacity: 0.4 }}
+      >
+        carderna.com
+      </p>
     </section>
   );
 }
@@ -399,6 +259,7 @@ function Avatar({
   paper: string;
 }) {
   const [broken, setBroken] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const initials = (name || "?")
     .split(/\s+/)
     .filter(Boolean)
@@ -416,26 +277,29 @@ function Avatar({
       }}
     >
       <div
-        className="grid h-28 w-28 place-items-center overflow-hidden rounded-full sm:h-32 sm:w-32"
+        className="relative grid h-20 w-20 place-items-center overflow-hidden rounded-full sm:h-24 sm:w-24"
         style={{ background: ink, border: `2px solid ${ink}` }}
       >
+        {/* Initials always rendered as base layer; image (if any) floats on top once loaded */}
+        <span
+          className="absolute inset-0 grid place-items-center font-display text-2xl italic lowercase sm:text-3xl"
+          style={{ color: paper, opacity: 0.85 }}
+        >
+          {initials || "?"}
+        </span>
         {showImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={src}
-            alt={name}
-            className="h-full w-full object-cover"
+            alt=""
+            aria-hidden
+            className="relative h-full w-full object-cover transition-opacity"
+            style={{ opacity: loaded ? 1 : 0 }}
             draggable={false}
+            onLoad={() => setLoaded(true)}
             onError={() => setBroken(true)}
           />
-        ) : (
-          <span
-            className="font-display text-3xl italic lowercase sm:text-4xl"
-            style={{ color: paper, opacity: 0.85 }}
-          >
-            {initials || "?"}
-          </span>
-        )}
+        ) : null}
       </div>
     </div>
   );

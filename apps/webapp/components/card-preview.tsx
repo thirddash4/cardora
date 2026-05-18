@@ -39,16 +39,15 @@ function AuroraCard({
 
   return (
     <section
-      className={`relative isolate flex ${heightClass} w-full items-center justify-center overflow-hidden px-6 py-16`}
+      className={`relative isolate flex ${heightClass} w-full items-center justify-center overflow-hidden ${fit ? "lg:px-6 lg:py-16" : "px-6 py-16"}`}
       style={{
-        background: theme.ink,
         color: theme.paper,
         fontFamily: fontFamily(theme.fontBody),
       }}
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
+        className={`pointer-events-none absolute inset-0 -z-10 ${fit ? "hidden lg:block" : ""}`}
         style={{
           background: `radial-gradient(60% 50% at 18% 20%, ${accent}24, transparent 60%),
             radial-gradient(50% 40% at 86% 78%, ${theme.accent}14, transparent 60%),
@@ -56,9 +55,9 @@ function AuroraCard({
         }}
       />
 
-      <div className="grid w-full max-w-6xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+      <div className="grid h-full w-full max-w-6xl gap-12 lg:h-auto lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
         <div
-          className="rise space-y-8 rounded-lg border p-6 sm:p-8 lg:rounded-none lg:border-0 lg:p-0"
+          className="rise flex h-full flex-col justify-between gap-6 rounded-lg border p-6 sm:p-7 lg:h-auto lg:gap-8 lg:rounded-none lg:border-0 lg:p-0"
           style={{
             borderColor: `${theme.paper}14`,
             background: `linear-gradient(180deg, ${theme.surface}cc, ${theme.ink}66)`,
@@ -85,7 +84,7 @@ function AuroraCard({
           </div>
 
           <h1
-            className="font-display max-w-full text-balance text-[clamp(48px,11vw,180px)] leading-[0.92] tracking-[-0.035em] [overflow-wrap:break-word] [hyphens:auto]"
+            className="font-display max-w-full text-balance text-[clamp(40px,9vw,160px)] leading-[0.92] tracking-[-0.035em] [overflow-wrap:break-word] [hyphens:auto]"
             style={{ fontFamily: fontFamily(theme.fontDisplay) }}
           >
             <span className="lowercase italic" style={{ color: theme.paper }}>
@@ -93,8 +92,8 @@ function AuroraCard({
             </span>
           </h1>
 
-          <div className="space-y-5 pt-2">
-            <p className="text-lg" style={{ color: theme.paper }}>
+          <div className="space-y-4">
+            <p className="text-base sm:text-lg" style={{ color: theme.paper }}>
               {v.role}
             </p>
 
