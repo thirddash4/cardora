@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { Check, Share2 } from "lucide-react";
+import { Check, ContactRound, Share2 } from "lucide-react";
 import { CardPreview } from "@/components/card-preview";
 import type { Card } from "@/db/schema";
 import { fontFamily, normalizeCardTheme } from "@/lib/card-theme";
@@ -118,11 +118,20 @@ export function CardView({ card }: { card: Card }) {
         </div>
       </div>
 
-      {/* Bottom hint row: share button inline with the tap hint */}
+      {/* Bottom hint row: save-contact + share + tap hint */}
       <div
         className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3"
         style={{ color: theme.paper }}
       >
+        <a
+          href={`/c/${card.slug}/vcard`}
+          className="grid h-8 w-8 place-items-center rounded-full border bg-white/5 backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
+          style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
+          aria-label="Save contact"
+          download
+        >
+          <ContactRound className="size-3.5" />
+        </a>
         <button
           type="button"
           onClick={share}
