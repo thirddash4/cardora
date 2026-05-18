@@ -2,11 +2,11 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Third — QR Business Card',
-  description: 'A credit-card-size English–Thai digital business card for Third with a scannable QR code.',
+  title: 'Cardora — Third',
+  description: 'Cardora: a minimal mobile-friendly English–Thai digital business card for Third with a scannable QR code.',
   openGraph: {
-    title: 'Third — QR Business Card',
-    description: 'Credit-card-size bilingual English–Thai digital business card with QR code.',
+    title: 'Cardora — Third',
+    description: 'Minimal credit-card-size bilingual English–Thai digital business card with QR code.',
     type: 'website',
   },
 };

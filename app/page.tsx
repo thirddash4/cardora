@@ -2,13 +2,13 @@ const cardUrl = 'https://third-bilingual-card.vercel.app';
 
 export default function Home() {
   return (
-    <main className="shell" aria-label="Third credit-card-size bilingual business card">
+    <main className="shell" aria-label="Cardora credit-card-size bilingual business card for Third">
       <section className="credit-card" aria-labelledby="name">
         <div className="card-face">
           <div className="content">
             <div className="topline">
-              <span>Digital Card</span>
-              <span lang="th">นามบัตรดิจิทัล</span>
+              <span>Cardora</span>
+              <span lang="th">นามบัตรอังกฤษ-ไทย</span>
             </div>
 
             <div className="identity">
@@ -25,7 +25,7 @@ export default function Home() {
 
           <div className="scan" aria-label="Scan QR code for this digital card">
             <div className="qr-wrap">
-              <img src="/qr.svg" alt="QR code linking to Third digital business card" />
+              <img src="/qr.svg" alt="QR code linking to Cardora, Third's digital business card" />
             </div>
             <p>Scan / สแกน</p>
             <a href={cardUrl}>{cardUrl.replace('https://', '')}</a>
