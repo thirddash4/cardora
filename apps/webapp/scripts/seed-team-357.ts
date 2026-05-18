@@ -2,7 +2,7 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { eq } from "drizzle-orm";
 import * as schema from "../db/schema";
-import { createId, slugify } from "../lib/ids";
+import { createId } from "../lib/ids";
 import { defaultCardTheme } from "../lib/card-theme";
 
 if (!process.env.DATABASE_URL) {
@@ -27,7 +27,7 @@ const members = [
     avatar: "/avatars/third.jpg",
   },
   {
-    slug: "save",
+    slug: "thanawat.c",
     nickname: "Save",
     name: "Thanawat Choopraserdchok",
     role: "Founder",
@@ -35,7 +35,7 @@ const members = [
     email: "thanawat.ch@357baking.com",
   },
   {
-    slug: "nui",
+    slug: "rungnapa.j",
     nickname: "Nui",
     name: "Rungnapa Jorasa",
     role: "Senior Operations Manager",
@@ -43,7 +43,7 @@ const members = [
     email: "rungnapa.j@357baking.com",
   },
   {
-    slug: "geaw",
+    slug: "janyaporn.j",
     nickname: "Geaw",
     name: "Janyaporn Jannoi",
     role: "Executive Assistant",
@@ -54,23 +54,25 @@ const members = [
 
 async function main() {
   const teamRow = (
-    await db.select().from(schema.team).where(eq(schema.team.slug, teamSlug)).limit(1)
+    await db
+      .select()
+      .from(schema.team)
+      .where(eq(schema.team.slug, teamSlug))
+      .limit(1)
   )[0];
   if (!teamRow) {
     console.error(`No team with slug ${teamSlug}.`);
     process.exit(1);
   }
 
-  const template = (
-    await db.select().from(schema.cardTemplate).limit(1)
-  )[0];
+  const template = (await db.select().from(schema.cardTemplate).limit(1))[0];
   if (!template) {
     console.error("No template found. Run the admin seed first.");
     process.exit(1);
   }
 
   for (const m of members) {
-    const slug = slugify(m.slug);
+    const slug = m.slug;
     const values: Record<string, string> = {
       name: m.name,
       nickname: m.nickname,
@@ -83,7 +85,11 @@ async function main() {
     if (m.avatar) values.avatar = m.avatar;
 
     const existing = (
-      await db.select().from(schema.card).where(eq(schema.card.slug, slug)).limit(1)
+      await db
+        .select()
+        .from(schema.card)
+        .where(eq(schema.card.slug, slug))
+        .limit(1)
     )[0];
 
     if (existing) {
