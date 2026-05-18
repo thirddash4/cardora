@@ -50,7 +50,7 @@ export default function SignInPage() {
 
       <div className="w-full max-w-md rounded-lg border bg-[var(--surface)]/80 p-8 backdrop-blur-xl">
         <Link href="/" className="flex items-baseline gap-2">
-          <span className="font-display text-2xl italic lowercase tracking-tight">cardora</span>
+          <span className="font-display text-2xl italic lowercase tracking-tight">carderna</span>
           <span
             className="h-1.5 w-1.5 translate-y-[-2px] rounded-full"
             style={{ background: "var(--accent-color)", boxShadow: "0 0 10px var(--accent-color)" }}

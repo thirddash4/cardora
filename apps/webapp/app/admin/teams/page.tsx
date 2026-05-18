@@ -50,13 +50,13 @@ export default async function TeamsPage() {
               <Input
                 id="name"
                 name="name"
-                placeholder="Cardora Studio"
+                placeholder="Carderna Studio"
                 required
               />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="slug">Slug</Label>
-              <Input id="slug" name="slug" placeholder="cardora-studio" />
+              <Input id="slug" name="slug" placeholder="carderna-studio" />
             </div>
             <Button>Create team</Button>
           </form>

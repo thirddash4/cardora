@@ -2,7 +2,7 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "@/db/schema";
 
-const connectionString = process.env.DATABASE_URL ?? "postgresql://cardora:cardora@localhost:5432/cardora";
+const connectionString = process.env.DATABASE_URL ?? "postgresql://carderna:carderna@localhost:5432/carderna";
 
 export const sql = neon(connectionString);
 export const db = drizzle(sql, { schema });

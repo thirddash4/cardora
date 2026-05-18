@@ -5,6 +5,6 @@ export default defineConfig({
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL ?? "postgresql://cardora:cardora@localhost:5432/cardora",
+    url: process.env.DATABASE_URL ?? "postgresql://carderna:carderna@localhost:5432/carderna",
   },
 });

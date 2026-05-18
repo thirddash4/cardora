@@ -14,7 +14,7 @@ const sql = neon(process.env.DATABASE_URL);
 const db = drizzle(sql, { schema });
 
 const team357 = "357 Enterprise";
-const teamSlug = "cardora-studio"; // keep existing team
+const teamSlug = "carderna-studio"; // keep existing team
 
 const members = [
   {

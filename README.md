@@ -1,6 +1,6 @@
-# Cardora
+# Carderna
 
-Cardora is a Turbo/npm workspace for a digital business card product.
+Carderna is a Turbo/npm workspace for a digital business card product.
 
 - `apps/marketing`: Astro-only marketing site.
 - `apps/webapp`: Next.js app with Turbopack dev server, Better Auth login, shadcn-style admin UI, Neon/Postgres schema, and public card pages at `/c/[card-slug]`.
@@ -19,8 +19,8 @@ The webapp runs on Next's default port `3000`; the Astro marketing app is config
 Copy `.env.example` to `.env.local` or configure the same values in your deployment environment.
 
 ```bash
-npm run db:generate --workspace @cardora/webapp
-npm run db:migrate --workspace @cardora/webapp
+npm run db:generate --workspace @carderna/webapp
+npm run db:migrate --workspace @carderna/webapp
 ```
 
 `DATABASE_URL` should be a Neon PostgreSQL connection string. Without it, admin list pages fall back to seeded demo data so the UI can build locally.

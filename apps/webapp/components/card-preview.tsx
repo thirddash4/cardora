@@ -202,7 +202,7 @@ function EditorialCard({
             className="font-mono text-[10px] uppercase tracking-[0.24em] sm:text-[11px] sm:tracking-[0.28em]"
             style={{ color: theme.muted }}
           >
-            cardora · /c/{card.slug}
+            carderna · /c/{card.slug}
           </span>
         </header>
 
@@ -285,7 +285,7 @@ function EditorialCard({
               style={{ color: theme.ink, opacity: 0.75 }}
             >
               {v.tagline ??
-                "A working business card — built in Cardora, published to a public URL, customizable to taste."}
+                "A working business card — built in Carderna, published to a public URL, customizable to taste."}
             </p>
           </div>
           <div>

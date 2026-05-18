@@ -166,7 +166,7 @@ export async function createCard(formData: FormData) {
         name: title,
         role: "—",
         company: "—",
-        email: "hello@cardora.app",
+        email: "hello@carderna.app",
       },
       theme: { ...defaultCardTheme },
       layout: "aurora",

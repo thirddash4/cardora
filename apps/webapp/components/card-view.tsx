@@ -30,7 +30,7 @@ export function CardView({ card }: { card: Card }) {
 
   async function share() {
     const data = {
-      title: `${card.values.name} · ${card.values.company ?? "Cardora"}`,
+      title: `${card.values.name} · ${card.values.company ?? "Carderna"}`,
       text: card.values.tagline ?? "",
       url: href,
     };
@@ -278,7 +278,7 @@ function CardBack({
   const heightClass = fit ? "h-full" : "min-h-svh";
 
   // Encode either the URL or a quick vCard string. URL is more universal.
-  const qrValue = href || `https://cardora.app/c/${card.slug}`;
+  const qrValue = href || `https://carderna.app/c/${card.slug}`;
 
   return (
     <section

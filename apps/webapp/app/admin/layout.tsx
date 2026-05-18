@@ -64,7 +64,7 @@ export default async function AdminLayout({
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r bg-[var(--surface)]/70 p-6 backdrop-blur-xl md:flex md:flex-col">
         <Link href="/admin" className="flex items-baseline gap-2">
           <span className="font-display text-3xl italic lowercase tracking-tight">
-            cardora
+            carderna
           </span>
           <span
             className="h-1.5 w-1.5 translate-y-[-2px] rounded-full"
@@ -117,7 +117,7 @@ export default async function AdminLayout({
             href="/admin"
             className="font-display text-2xl italic lowercase"
           >
-            cardora
+            carderna
           </Link>
         </div>
         <div className="mx-auto w-full max-w-6xl px-6 py-10">{children}</div>

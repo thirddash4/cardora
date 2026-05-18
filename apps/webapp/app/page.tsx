@@ -16,7 +16,7 @@ export default function Home() {
 
       <header className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link href="/" className="flex items-baseline gap-2">
-          <span className="font-display text-3xl italic lowercase tracking-tight">cardora</span>
+          <span className="font-display text-3xl italic lowercase tracking-tight">carderna</span>
           <span
             className="h-1.5 w-1.5 translate-y-[-2px] rounded-full"
             style={{ background: "var(--accent-color)", boxShadow: "0 0 10px var(--accent-color)" }}
@@ -56,7 +56,7 @@ export default function Home() {
           className="col-span-12 md:col-span-7 rise text-lg leading-relaxed text-muted-foreground"
           style={{ animationDelay: "0.12s" }}
         >
-          Cardora is a team workspace for building stunning, customizable digital business cards.
+          Carderna is a team workspace for building stunning, customizable digital business cards.
           Pick a layout, choose your accent, write your tagline — publish to a public URL anyone can scan.
         </p>
 
@@ -89,7 +89,7 @@ export default function Home() {
       </section>
 
       <footer className="mx-auto mt-20 flex w-full max-w-7xl items-center justify-between border-t pt-6 text-xs text-muted-foreground">
-        <span className="font-mono uppercase tracking-[0.22em]">cardora · 2026</span>
+        <span className="font-mono uppercase tracking-[0.22em]">carderna · 2026</span>
         <span className="font-mono uppercase tracking-[0.22em]">made dark, made yours</span>
       </footer>
     </main>

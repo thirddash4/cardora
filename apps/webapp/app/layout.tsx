@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cardora — Digital business cards for ambitious teams",
+  title: "Carderna — Digital business cards for ambitious teams",
   description:
-    "Cardora is the team workspace for crafting stunning, customizable digital business cards with public, shareable URLs.",
+    "Carderna is the team workspace for crafting stunning, customizable digital business cards with public, shareable URLs.",
 };
 
 export const viewport: Viewport = {

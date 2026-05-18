@@ -35,7 +35,7 @@ export async function getPublicCard(slug: string) {
 
 export async function getTeams() {
   if (!hasDatabase) {
-    return [{ id: "team_cardora", name: "Cardora Studio", slug: "cardora-studio" }];
+    return [{ id: "team_carderna", name: "Carderna Studio", slug: "carderna-studio" }];
   }
 
   return db.select().from(team).orderBy(team.createdAt);

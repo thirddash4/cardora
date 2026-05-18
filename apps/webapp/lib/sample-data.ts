@@ -3,7 +3,7 @@ import { defaultCardTheme } from "@/lib/card-theme";
 
 export const sampleTemplate: CardTemplate = {
   id: "tpl_aurora",
-  teamId: "team_cardora",
+  teamId: "team_carderna",
   name: "Aurora Executive",
   slug: "aurora-executive",
   status: "published",
@@ -30,19 +30,19 @@ export const sampleTemplate: CardTemplate = {
 
 export const sampleCard: Card = {
   id: "card_third",
-  teamId: "team_cardora",
+  teamId: "team_carderna",
   templateId: sampleTemplate.id,
   slug: "third",
-  title: "Third Cardora",
+  title: "Third Carderna",
   values: {
     name: "Third",
     role: "AI Systems Operator",
-    company: "Cardora",
-    email: "third@cardora.local",
+    company: "Carderna",
+    email: "third@carderna.local",
     phone: "+66 00 000 0000",
     tagline: "Digital identity, designed.",
     location: "Bangkok",
-    website: "cardora.app",
+    website: "carderna.app",
   },
   theme: {
     ink: defaultCardTheme.ink,
@@ -60,7 +60,7 @@ export const sampleCard: Card = {
 
 export const sampleCardEditorial: Card = {
   id: "card_lumen",
-  teamId: "team_cardora",
+  teamId: "team_carderna",
   templateId: sampleTemplate.id,
   slug: "lumen",
   title: "Lumen Park",

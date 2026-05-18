@@ -10,7 +10,7 @@ import { defaultCardTheme } from "../lib/card-theme";
 
 const email = process.env.ADMIN_EMAIL;
 const password = process.env.ADMIN_PASSWORD;
-const name = process.env.ADMIN_NAME ?? "Cardora Admin";
+const name = process.env.ADMIN_NAME ?? "Carderna Admin";
 
 if (!email || !password) {
   console.error("Missing ADMIN_EMAIL or ADMIN_PASSWORD env vars.");
@@ -26,10 +26,10 @@ const sql = neon(process.env.DATABASE_URL);
 const db = drizzle(sql, { schema });
 
 const auth = betterAuth({
-  appName: "Cardora",
+  appName: "Carderna",
   baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
   secret:
-    process.env.BETTER_AUTH_SECRET ?? "cardora-local-development-secret-32",
+    process.env.BETTER_AUTH_SECRET ?? "carderna-local-development-secret-32",
   database: drizzleAdapter(db, { provider: "pg", schema }),
   emailAndPassword: { enabled: true },
   plugins: [nextCookies()],
@@ -68,7 +68,7 @@ async function main() {
     )[0];
 
   // Seed default team + add admin as owner
-  const teamSlug = "cardora-studio";
+  const teamSlug = "carderna-studio";
   let teamRow = (
     await db
       .select()
@@ -81,7 +81,7 @@ async function main() {
     const teamId = createId("team");
     await db
       .insert(schema.team)
-      .values({ id: teamId, name: "Cardora Studio", slug: teamSlug });
+      .values({ id: teamId, name: "Carderna Studio", slug: teamSlug });
     teamRow = (
       await db
         .select()
@@ -164,11 +164,11 @@ async function main() {
       values: {
         name,
         role: "Founder",
-        company: "Cardora",
+        company: "Carderna",
         email: email!,
         tagline: "Digital identity, designed.",
         location: "—",
-        website: "cardora.app",
+        website: "carderna.app",
       },
       theme: { ...defaultCardTheme },
       layout: "aurora",

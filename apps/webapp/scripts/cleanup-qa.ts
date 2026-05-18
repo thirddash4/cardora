@@ -32,11 +32,11 @@ async function main() {
         values: {
           name: adminName,
           role: "Founder",
-          company: "Cardora",
+          company: "Carderna",
           email: adminEmail,
           tagline: "Digital identity, designed.",
           location: "—",
-          website: "cardora.app",
+          website: "carderna.app",
         },
         updatedAt: new Date(),
       })

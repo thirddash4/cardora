@@ -5,9 +5,9 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 
 export const auth = betterAuth({
-  appName: "Cardora",
+  appName: "Carderna",
   baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
-  secret: process.env.BETTER_AUTH_SECRET ?? "cardora-local-development-secret-32",
+  secret: process.env.BETTER_AUTH_SECRET ?? "carderna-local-development-secret-32",
   database: drizzleAdapter(db, {
     provider: "pg",
     schema,
