@@ -71,7 +71,9 @@ export function CardView({ card }: { card: Card }) {
           aria-label="Flip card"
         >
           <RotateCw className="size-3.5" />
-          <span className="hidden sm:inline font-mono">{flipped ? "front" : "qr"}</span>
+          <span className="hidden sm:inline font-mono">
+            {flipped ? "front" : "qr"}
+          </span>
         </button>
 
         <button
@@ -81,8 +83,14 @@ export function CardView({ card }: { card: Card }) {
           style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
           aria-label="Share card"
         >
-          {shareState === "copied" ? <Check className="size-3.5 text-[var(--accent-color)]" /> : <Share2 className="size-3.5" />}
-          <span className="hidden sm:inline font-mono">{shareState === "copied" ? "copied" : "share"}</span>
+          {shareState === "copied" ? (
+            <Check className="size-3.5 text-[var(--accent-color)]" />
+          ) : (
+            <Share2 className="size-3.5" />
+          )}
+          <span className="hidden sm:inline font-mono">
+            {shareState === "copied" ? "copied" : "share"}
+          </span>
         </button>
 
         <button
@@ -92,8 +100,14 @@ export function CardView({ card }: { card: Card }) {
           style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
           aria-label={fullscreen ? "Exit fullscreen" : "Enter fullscreen"}
         >
-          {fullscreen ? <X className="size-3.5" /> : <Maximize2 className="size-3.5" />}
-          <span className="hidden sm:inline font-mono">{fullscreen ? "exit" : "rotate"}</span>
+          {fullscreen ? (
+            <X className="size-3.5" />
+          ) : (
+            <Maximize2 className="size-3.5" />
+          )}
+          <span className="hidden sm:inline font-mono">
+            {fullscreen ? "exit" : "full"}
+          </span>
         </button>
       </div>
 
@@ -159,7 +173,48 @@ export function CardView({ card }: { card: Card }) {
         tap to {flipped ? "flip back" : "see qr"}
       </p>
 
+      {/* Portrait-fullscreen "turn phone landscape" hint */}
+      {fullscreen ? (
+        <div
+          className="portrait-hint pointer-events-none absolute inset-x-0 top-1/2 z-40 -translate-y-1/2 text-center"
+          style={{ color: theme.paper }}
+        >
+          <div
+            className="mx-auto inline-flex items-center gap-3 rounded-full border px-4 py-2 backdrop-blur"
+            style={{
+              borderColor: `${theme.accent}66`,
+              background: `${theme.ink}c0`,
+            }}
+          >
+            <RotateCw className="size-4" style={{ color: theme.accent }} />
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em]">
+              turn phone landscape
+            </span>
+          </div>
+        </div>
+      ) : null}
+
       <style jsx>{`
+        /* Show the rotate hint only when the device is in portrait + small */
+        .portrait-hint {
+          display: none;
+        }
+        @media (max-width: 768px) and (orientation: portrait) {
+          .portrait-hint {
+            display: block;
+            animation: hint-fade 4.5s ease-in-out forwards;
+          }
+        }
+        @keyframes hint-fade {
+          0%,
+          60% {
+            opacity: 0.92;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+
         @media (max-width: 768px) {
           .fullscreen-rotate .flip-inner {
             transform-origin: center center;
@@ -180,7 +235,15 @@ export function CardView({ card }: { card: Card }) {
   );
 }
 
-function CardBack({ card, href, fit }: { card: Card; href: string; fit: boolean }) {
+function CardBack({
+  card,
+  href,
+  fit,
+}: {
+  card: Card;
+  href: string;
+  fit: boolean;
+}) {
   const theme = normalizeCardTheme(card.theme);
   const v = card.values;
   const heightClass = fit ? "h-full" : "min-h-svh";
@@ -212,11 +275,17 @@ function CardBack({ card, href, fit }: { card: Card; href: string; fit: boolean 
           </p>
           <h2
             className="font-display text-4xl italic lowercase tracking-tight sm:text-5xl"
-            style={{ fontFamily: fontFamily(theme.fontDisplay), color: theme.paper }}
+            style={{
+              fontFamily: fontFamily(theme.fontDisplay),
+              color: theme.paper,
+            }}
           >
             {v.name}
           </h2>
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: theme.paper, opacity: 0.6 }}>
+          <p
+            className="font-mono text-[11px] uppercase tracking-[0.22em]"
+            style={{ color: theme.paper, opacity: 0.6 }}
+          >
             /c/{card.slug}
           </p>
         </div>
@@ -242,14 +311,25 @@ function CardBack({ card, href, fit }: { card: Card; href: string; fit: boolean 
           )}
         </div>
 
-        <div className="grid w-full max-w-md gap-1 text-sm" style={{ color: theme.paper }}>
+        <div
+          className="grid w-full max-w-md gap-1 text-sm"
+          style={{ color: theme.paper }}
+        >
           {v.email ? (
-            <a className="truncate underline decoration-1 underline-offset-4 hover:opacity-100" style={{ opacity: 0.8 }} href={`mailto:${v.email}`}>
+            <a
+              className="truncate underline decoration-1 underline-offset-4 hover:opacity-100"
+              style={{ opacity: 0.8 }}
+              href={`mailto:${v.email}`}
+            >
               {v.email}
             </a>
           ) : null}
           {v.phone ? (
-            <a className="truncate underline decoration-1 underline-offset-4" style={{ opacity: 0.8 }} href={`tel:${v.phone.replace(/[^+\d]/g, "")}`}>
+            <a
+              className="truncate underline decoration-1 underline-offset-4"
+              style={{ opacity: 0.8 }}
+              href={`tel:${v.phone.replace(/[^+\d]/g, "")}`}
+            >
               {v.phone}
             </a>
           ) : null}
