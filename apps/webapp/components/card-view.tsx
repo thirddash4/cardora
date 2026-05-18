@@ -70,6 +70,37 @@ export function CardView({ card }: { card: Card }) {
       className="relative isolate min-h-svh w-full"
       style={{ background: theme.ink }}
     >
+      {/* Action bar — top right */}
+      <div className="absolute right-4 top-4 z-30 flex items-center gap-2 sm:right-6 sm:top-6">
+        <a
+          href={`/c/${card.slug}/vcard`}
+          download
+          className="inline-flex h-10 items-center gap-2 rounded-full border bg-white/5 px-3 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
+          style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
+          aria-label="Save contact"
+        >
+          <ContactRound className="size-3.5" />
+          <span className="hidden sm:inline font-mono">save</span>
+        </a>
+
+        <button
+          type="button"
+          onClick={share}
+          className="inline-flex h-10 items-center gap-2 rounded-full border bg-white/5 px-3 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
+          style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
+          aria-label={shareState === "copied" ? "Link copied" : "Share card"}
+        >
+          {shareState === "copied" ? (
+            <Check className="size-3.5" style={{ color: theme.accent }} />
+          ) : (
+            <Share2 className="size-3.5" />
+          )}
+          <span className="hidden sm:inline font-mono">
+            {shareState === "copied" ? "copied" : "share"}
+          </span>
+        </button>
+      </div>
+
       {/* Centered card stage — sized so a 4:7 portrait card always fits in one screen on mobile */}
       <div
         className="grid h-svh place-items-center px-4 sm:px-6"
@@ -118,39 +149,12 @@ export function CardView({ card }: { card: Card }) {
         </div>
       </div>
 
-      {/* Bottom hint row: save-contact + share + tap hint */}
-      <div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3"
+      <p
+        className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.28em] opacity-50"
         style={{ color: theme.paper }}
       >
-        <a
-          href={`/c/${card.slug}/vcard`}
-          className="grid h-8 w-8 place-items-center rounded-full border bg-white/5 backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
-          style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
-          aria-label="Save contact"
-          download
-        >
-          <ContactRound className="size-3.5" />
-        </a>
-        <button
-          type="button"
-          onClick={share}
-          className="grid h-8 w-8 place-items-center rounded-full border bg-white/5 backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
-          style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
-          aria-label={shareState === "copied" ? "Link copied" : "Share card"}
-        >
-          {shareState === "copied" ? (
-            <Check className="size-3.5" style={{ color: theme.accent }} />
-          ) : (
-            <Share2 className="size-3.5" />
-          )}
-        </button>
-        <span className="font-mono text-[10px] uppercase tracking-[0.28em] opacity-50">
-          {shareState === "copied"
-            ? "link copied"
-            : `tap to ${flipped ? "flip back" : "see qr"}`}
-        </span>
-      </div>
+        tap to {flipped ? "flip back" : "see qr"}
+      </p>
     </div>
   );
 }
