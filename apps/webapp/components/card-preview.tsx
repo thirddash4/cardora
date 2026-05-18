@@ -184,20 +184,20 @@ function EditorialCard({
         style={{ gridTemplateColumns: "repeat(12, minmax(0, 1fr))" }}
       >
         <header
-          className="col-span-12 flex items-baseline justify-between border-b pb-4"
+          className="col-span-12 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b pb-4"
           style={{ borderColor: `${theme.ink}1f` }}
         >
           <span
-            className="font-mono text-[11px] uppercase tracking-[0.28em]"
+            className="font-mono text-[10px] uppercase tracking-[0.24em] sm:text-[11px] sm:tracking-[0.28em]"
             style={{ color: theme.muted }}
           >
             issue №01 · {v.company}
           </span>
           <span
-            className="font-mono text-[11px] uppercase tracking-[0.28em]"
+            className="font-mono text-[10px] uppercase tracking-[0.24em] sm:text-[11px] sm:tracking-[0.28em]"
             style={{ color: theme.muted }}
           >
-            cardora /c/{card.slug}
+            cardora · /c/{card.slug}
           </span>
         </header>
 
