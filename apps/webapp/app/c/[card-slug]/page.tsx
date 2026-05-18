@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { CardPreview } from "@/components/card-preview";
+import { CardView } from "@/components/card-view";
 import { getPublicCard } from "@/lib/template-store";
 
 export default async function PublicCardPage({ params }: { params: Promise<{ "card-slug": string }> }) {
@@ -8,5 +8,5 @@ export default async function PublicCardPage({ params }: { params: Promise<{ "ca
 
   if (!card) notFound();
 
-  return <CardPreview card={card} />;
+  return <CardView card={card} />;
 }

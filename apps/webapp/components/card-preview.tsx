@@ -71,7 +71,7 @@ function AuroraCard({
           </div>
 
           <h1
-            className="font-display text-balance text-[clamp(80px,13vw,200px)] leading-[0.86] tracking-[-0.04em]"
+            className="font-display max-w-full text-balance text-[clamp(48px,11vw,180px)] leading-[0.92] tracking-[-0.035em] [overflow-wrap:break-word] [hyphens:auto]"
             style={{ fontFamily: fontFamily(theme.fontDisplay) }}
           >
             <span className="lowercase italic" style={{ color: theme.paper }}>
@@ -133,7 +133,7 @@ function AuroraCard({
 
               <div>
                 <p
-                  className="font-display text-5xl lowercase italic leading-none tracking-tight sm:text-6xl"
+                  className="font-display text-balance text-3xl lowercase italic leading-[0.95] tracking-tight sm:text-4xl [overflow-wrap:break-word]"
                   style={{
                     fontFamily: fontFamily(theme.fontDisplay),
                     color: theme.paper,
@@ -172,7 +172,7 @@ function EditorialCard({
 
   return (
     <section
-      className={`relative isolate ${heightClass} w-full px-6 py-12`}
+      className={`relative isolate ${heightClass} w-full overflow-x-hidden px-6 py-12`}
       style={{
         background: theme.paper,
         color: theme.ink,
@@ -209,7 +209,7 @@ function EditorialCard({
             {v.role}
           </p>
           <h1
-            className="font-display mt-3 text-balance text-[clamp(72px,12vw,180px)] leading-[0.9] tracking-[-0.03em]"
+            className="font-display mt-3 max-w-full text-balance text-[clamp(48px,10vw,160px)] leading-[0.95] tracking-[-0.03em] [overflow-wrap:break-word] [hyphens:auto]"
             style={{
               fontFamily: fontFamily(theme.fontDisplay),
               color: theme.ink,
