@@ -35,20 +35,49 @@ export function CardView({ card }: { card: Card }) {
       url: href,
     };
 
+    // 1) Native share sheet (mobile + many desktop browsers)
     if (typeof navigator !== "undefined" && "share" in navigator) {
       try {
         await navigator.share(data);
         return;
       } catch {
-        // user dismissed — fall through to clipboard
+        // user dismissed or share failed — fall through
       }
     }
 
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
-      await navigator.clipboard.writeText(href);
-      setShareState("copied");
-      setTimeout(() => setShareState("idle"), 1800);
+    // 2) Async clipboard API (most modern browsers, https)
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(href);
+        setShareState("copied");
+        setTimeout(() => setShareState("idle"), 1800);
+        return;
+      } catch {
+        // permission denied or insecure context — fall through
+      }
     }
+
+    // 3) Last-resort: temporary input + execCommand("copy")
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = href;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (ok) {
+        setShareState("copied");
+        setTimeout(() => setShareState("idle"), 1800);
+        return;
+      }
+    } catch {
+      // ignore
+    }
+
+    // 4) Final fallback: show prompt so user can copy manually
+    if (typeof window !== "undefined") window.prompt("Copy this URL:", href);
   }
 
   return (
