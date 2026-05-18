@@ -103,9 +103,9 @@ export function CardView({ card }: { card: Card }) {
         </button>
       </div>
 
-      {/* Centered card stage */}
+      {/* Centered card stage — sized so a 4:7 portrait card always fits in one screen on mobile */}
       <div
-        className="grid min-h-svh place-items-center px-4 py-20 sm:px-6"
+        className="grid h-svh place-items-center px-4 sm:px-6"
         onClick={(e) => {
           const target = e.target as HTMLElement;
           if (target.closest("button") || target.closest("a")) return;
@@ -113,7 +113,7 @@ export function CardView({ card }: { card: Card }) {
         }}
       >
         <div
-          className="relative mx-auto w-full max-w-sm lg:max-w-6xl"
+          className="relative mx-auto w-[min(78vw,calc((100svh-11rem)*4/7))] lg:w-full lg:max-w-6xl"
           style={{ perspective: "1800px" }}
         >
           <div
@@ -125,7 +125,7 @@ export function CardView({ card }: { card: Card }) {
               transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
             }}
           >
-            {/* Front face */}
+            {/* Front face (its aspect ratio sets the card height; back overlays it) */}
             <div
               className="aspect-[4/7] w-full lg:aspect-auto"
               style={{
@@ -138,7 +138,7 @@ export function CardView({ card }: { card: Card }) {
 
             {/* Back face */}
             <div
-              className="absolute inset-0 aspect-[4/7] w-full lg:aspect-auto"
+              className="absolute inset-0"
               style={{
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",

@@ -83,22 +83,24 @@ function AuroraCard({
             ) : null}
           </div>
 
-          <h1
-            className="font-display max-w-full text-balance text-[clamp(40px,9vw,160px)] leading-[0.92] tracking-[-0.035em] [overflow-wrap:break-word] [hyphens:auto]"
-            style={{ fontFamily: fontFamily(theme.fontDisplay) }}
-          >
-            <span className="lowercase italic" style={{ color: theme.paper }}>
-              {v.name ?? "your name"}
-            </span>
-          </h1>
-
-          <div className="space-y-4">
-            <p className="text-base sm:text-lg" style={{ color: theme.paper }}>
+          <div className="space-y-3">
+            <h1
+              className="font-display max-w-full text-balance text-[clamp(40px,9vw,160px)] leading-[0.92] tracking-[-0.035em] [overflow-wrap:break-word] [hyphens:auto]"
+              style={{ fontFamily: fontFamily(theme.fontDisplay) }}
+            >
+              <span className="lowercase italic" style={{ color: theme.paper }}>
+                {v.name ?? "your name"}
+              </span>
+            </h1>
+            <p
+              className="font-mono text-[11px] uppercase tracking-[0.24em]"
+              style={{ color: accent }}
+            >
               {v.role}
             </p>
-
-            <ContactList values={v} accent={accent} paper={theme.paper} />
           </div>
+
+          <ContactList values={v} accent={accent} paper={theme.paper} />
         </div>
 
         <div
@@ -356,21 +358,15 @@ function ContactList({
   }>;
 
   return (
-    <ul className="grid gap-2.5" style={{ color: paper }}>
+    <ul className="grid gap-1.5" style={{ color: paper }}>
       {rows.map((row) => {
         const content = (
-          <span className="inline-flex items-center gap-3 text-[15px]">
-            <span
-              className="grid h-7 w-7 shrink-0 place-items-center rounded-md"
-              style={{
-                color: accent,
-                background: `${accent}14`,
-                border: `1px solid ${accent}33`,
-              }}
-            >
-              <row.Icon className="size-3.5" />
-            </span>
-            <span className="truncate" style={{ opacity: 0.9 }}>
+          <span className="inline-flex items-center gap-2.5 text-[12px]">
+            <row.Icon
+              className="size-3.5 shrink-0"
+              style={{ color: paper, opacity: 0.45 }}
+            />
+            <span className="truncate" style={{ opacity: 0.7 }}>
               {row.value}
             </span>
           </span>
@@ -378,10 +374,7 @@ function ContactList({
         return (
           <li key={row.value}>
             {row.href ? (
-              <a
-                href={row.href}
-                className="block transition-opacity hover:opacity-100"
-              >
+              <a href={row.href} className="block">
                 {content}
               </a>
             ) : (
