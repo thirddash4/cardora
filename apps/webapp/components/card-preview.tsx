@@ -124,7 +124,7 @@ function AuroraCard({
                   className="eyebrow"
                   style={{ color: theme.paper, opacity: 0.5 }}
                 >
-                  aurora · live
+                  {v.company ?? ""}
                 </span>
                 <span
                   className="font-mono text-[10px] uppercase tracking-[0.2em]"
@@ -148,7 +148,7 @@ function AuroraCard({
                   className="mt-2 text-sm"
                   style={{ color: theme.paper, opacity: 0.55 }}
                 >
-                  {v.role} · {v.company}
+                  {v.role}
                 </p>
               </div>
 
