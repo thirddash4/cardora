@@ -297,7 +297,15 @@ function CardBack({
         }}
       />
 
-      <div className="grid w-full max-w-2xl place-items-center gap-10 text-center">
+      <div className="grid w-full max-w-2xl place-items-center gap-8 text-center">
+        <Avatar
+          name={v.name}
+          src={v.avatar}
+          accent={theme.accent}
+          ink={theme.ink}
+          paper={theme.paper}
+        />
+
         <div className="space-y-2">
           <p className="eyebrow" style={{ color: theme.accent }}>
             scan · save · share
@@ -329,19 +337,19 @@ function CardBack({
           {qrValue ? (
             <QRCodeSVG
               value={qrValue}
-              size={224}
+              size={208}
               level="M"
               marginSize={1}
               bgColor={theme.paper}
               fgColor={theme.ink}
             />
           ) : (
-            <div className="h-[224px] w-[224px]" />
+            <div className="h-[208px] w-[208px]" />
           )}
         </div>
 
         <div
-          className="grid w-full max-w-md gap-1 text-sm"
+          className="hidden w-full max-w-md gap-1 text-sm"
           style={{ color: theme.paper }}
         >
           {v.email ? (
@@ -374,5 +382,61 @@ function CardBack({
         </div>
       </div>
     </section>
+  );
+}
+
+function Avatar({
+  name,
+  src,
+  accent,
+  ink,
+  paper,
+}: {
+  name: string;
+  src?: string;
+  accent: string;
+  ink: string;
+  paper: string;
+}) {
+  const [broken, setBroken] = useState(false);
+  const initials = (name || "?")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((s) => s[0]?.toUpperCase() ?? "")
+    .join("");
+  const showImage = src && !broken;
+
+  return (
+    <div
+      className="relative grid place-items-center rounded-full p-[3px]"
+      style={{
+        background: `conic-gradient(from 180deg, ${accent}, ${accent}80 30%, ${accent}40 55%, ${accent} 100%)`,
+        boxShadow: `0 0 60px -10px ${accent}80, inset 0 0 0 1px ${ink}`,
+      }}
+    >
+      <div
+        className="grid h-28 w-28 place-items-center overflow-hidden rounded-full sm:h-32 sm:w-32"
+        style={{ background: ink, border: `2px solid ${ink}` }}
+      >
+        {showImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={src}
+            alt={name}
+            className="h-full w-full object-cover"
+            draggable={false}
+            onError={() => setBroken(true)}
+          />
+        ) : (
+          <span
+            className="font-display text-3xl italic lowercase sm:text-4xl"
+            style={{ color: paper, opacity: 0.85 }}
+          >
+            {initials || "?"}
+          </span>
+        )}
+      </div>
+    </div>
   );
 }

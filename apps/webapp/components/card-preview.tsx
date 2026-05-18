@@ -1,3 +1,4 @@
+import { Globe, Mail, MapPin, Phone } from "lucide-react";
 import type { Card } from "@/db/schema";
 import {
   fontFamily,
@@ -92,18 +93,12 @@ function AuroraCard({
             </span>
           </h1>
 
-          <div className="space-y-3 pt-2">
+          <div className="space-y-5 pt-2">
             <p className="text-lg" style={{ color: theme.paper }}>
               {v.role}
             </p>
-            {v.tagline ? (
-              <p
-                className="eyebrow"
-                style={{ color: theme.paper, opacity: 0.5 }}
-              >
-                {v.tagline}
-              </p>
-            ) : null}
+
+            <ContactList values={v} accent={accent} paper={theme.paper} />
           </div>
         </div>
 
@@ -322,6 +317,81 @@ function EditorialCard({
         </div>
       </div>
     </section>
+  );
+}
+
+function ContactList({
+  values,
+  accent,
+  paper,
+}: {
+  values: Record<string, string>;
+  accent: string;
+  paper: string;
+}) {
+  const rows = [
+    values.email && {
+      Icon: Mail,
+      value: values.email,
+      href: `mailto:${values.email}`,
+    },
+    values.phone && {
+      Icon: Phone,
+      value: values.phone,
+      href: `tel:${values.phone.replace(/[^+\d]/g, "")}`,
+    },
+    values.website && {
+      Icon: Globe,
+      value: values.website,
+      href: `https://${values.website.replace(/^https?:\/\//, "")}`,
+    },
+    values.location && {
+      Icon: MapPin,
+      value: values.location,
+      href: null,
+    },
+  ].filter(Boolean) as Array<{
+    Icon: typeof Mail;
+    value: string;
+    href: string | null;
+  }>;
+
+  return (
+    <ul className="grid gap-2.5" style={{ color: paper }}>
+      {rows.map((row) => {
+        const content = (
+          <span className="inline-flex items-center gap-3 text-[15px]">
+            <span
+              className="grid h-7 w-7 shrink-0 place-items-center rounded-md"
+              style={{
+                color: accent,
+                background: `${accent}14`,
+                border: `1px solid ${accent}33`,
+              }}
+            >
+              <row.Icon className="size-3.5" />
+            </span>
+            <span className="truncate" style={{ opacity: 0.9 }}>
+              {row.value}
+            </span>
+          </span>
+        );
+        return (
+          <li key={row.value}>
+            {row.href ? (
+              <a
+                href={row.href}
+                className="block transition-opacity hover:opacity-100"
+              >
+                {content}
+              </a>
+            ) : (
+              content
+            )}
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
