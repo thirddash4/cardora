@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { Check, ContactRound, Share2 } from "lucide-react";
+import { Check, ContactRound, ImageDown, Share2 } from "lucide-react";
 import { CardPreview } from "@/components/card-preview";
 import type { Card } from "@/db/schema";
 import { fontFamily, normalizeCardTheme } from "@/lib/card-theme";
@@ -80,7 +80,18 @@ export function CardView({ card }: { card: Card }) {
           aria-label="Save contact"
         >
           <ContactRound className="size-3.5" />
-          <span className="hidden sm:inline font-mono">save</span>
+          <span className="hidden sm:inline font-mono">contact</span>
+        </a>
+
+        <a
+          href={`/c/${card.slug}/image`}
+          download
+          className="inline-flex h-10 items-center gap-2 rounded-full border bg-white/5 px-3 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
+          style={{ color: theme.paper, borderColor: `${theme.paper}33` }}
+          aria-label="Save image"
+        >
+          <ImageDown className="size-3.5" />
+          <span className="hidden sm:inline font-mono">image</span>
         </a>
 
         <button
